@@ -10,45 +10,46 @@ const server = http.createServer((request, response) => {
     if(requestUrl === '/') {
         fs.readFile('index.html', (error, fileContent) => {
             if(error){
-                
                 response.writeHead(404);
                 response.write(`Error. File not found.`);
             } else {
                 response.writeHead(200);
                 response.write(fileContent);
             }
-
-                response.end();
+            response.end();
         });
         
     } else if (requestUrl === '/about') {
-
         fs.readFile('about.html', (error, fileContent) => {
             if(error){
                 response.writeHead(404);
                 response.write(`Error. File not found.`);
             } else {
-
                 response.writeHead(200);
                 response.write(fileContent);
-
             }
-
-                response.end();
+            response.end();
         });
         
     } else if (requestUrl === '/contact') {
-        response.write(`Hello from port ${requestUrl}.`);
+        fs.readFile('contact.html', (error, fileContent) => {
+            if(error){
+                response.writeHead(404);
+                response.write(`Error. File not found.`);
+            } else {
+                response.writeHead(200);
+                response.write(fileContent);
+            }
+            response.end();
+        });
+        
     } else {
         response.writeHead(404);
         response.write(`Error. ${requestUrl} page not found.`);
         response.end();
-
     }
     
-    
 });
-
 
 server.listen(port, error => {
     if(error){
@@ -56,5 +57,4 @@ server.listen(port, error => {
     } else {
         console.log(`Server is listening on port ${port}.`);
     }
-
 });
